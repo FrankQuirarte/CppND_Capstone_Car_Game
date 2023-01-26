@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/CarGame.dir/src/main.cpp.o CMakeFiles/CarGame.dir/src/game.cpp.o CMakeFiles/CarGame.dir/src/controller.cpp.o CMakeFiles/CarGame.dir/src/renderer.cpp.o CMakeFiles/CarGame.dir/src/car.cpp.o -o CarGame  -L/usr/lib/x86_64-linux-gnu  -lSDL2 

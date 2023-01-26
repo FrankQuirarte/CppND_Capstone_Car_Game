@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build",
+  "command": "/usr/bin/g++  -I/usr/include/SDL2 -I/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src -g   -std=c++17 -std=gnu++17 -o CMakeFiles/CarGame.dir/src/main.cpp.o -c /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/main.cpp",
+  "file": "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/main.cpp"
+},
+{
+  "directory": "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build",
+  "command": "/usr/bin/g++  -I/usr/include/SDL2 -I/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src -g   -std=c++17 -std=gnu++17 -o CMakeFiles/CarGame.dir/src/game.cpp.o -c /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/game.cpp",
+  "file": "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/game.cpp"
+},
+{
+  "directory": "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build",
+  "command": "/usr/bin/g++  -I/usr/include/SDL2 -I/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src -g   -std=c++17 -std=gnu++17 -o CMakeFiles/CarGame.dir/src/controller.cpp.o -c /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/controller.cpp",
+  "file": "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/controller.cpp"
+},
+{
+  "directory": "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build",
+  "command": "/usr/bin/g++  -I/usr/include/SDL2 -I/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src -g   -std=c++17 -std=gnu++17 -o CMakeFiles/CarGame.dir/src/renderer.cpp.o -c /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/renderer.cpp",
+  "file": "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/renderer.cpp"
+},
+{
+  "directory": "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build",
+  "command": "/usr/bin/g++  -I/usr/include/SDL2 -I/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src -g   -std=c++17 -std=gnu++17 -o CMakeFiles/CarGame.dir/src/car.cpp.o -c /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/car.cpp",
+  "file": "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/car.cpp"
+}
+]
