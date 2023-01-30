@@ -8,8 +8,7 @@ class Controller {
   void HandleInput(bool &running, Car &car) const;
 
  private:
-  void ChangeDirection(Car &car, Car::Direction input,
-                       Car::Direction opposite) const;
+  void ChangeDirection(Car &car, Car::Direction input, Car::Direction opposite) const;
 };
 
 #endif

@@ -7,11 +7,15 @@
 
 class Renderer {
  public:
-  Renderer(const std::size_t screen_width, const std::size_t screen_height,
-           const std::size_t grid_width, const std::size_t grid_height);
+  //constructor
+  Renderer(const std::size_t screen_width, const std::size_t screen_height, const std::size_t grid_width, const std::size_t grid_height);
+  //destructor
   ~Renderer();
 
-  void Render(Car const car, SDL_Point const &food);
+  //methods:
+  //renders the car and enemies
+  void Render(Car const car);
+  //updates the upper bar in the game window
   void UpdateWindowTitle(int score, int fps);
 
  private:

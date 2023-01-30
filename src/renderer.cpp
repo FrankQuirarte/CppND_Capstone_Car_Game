@@ -2,20 +2,20 @@
 #include <iostream>
 #include <string>
 
-Renderer::Renderer(const std::size_t screen_width,
-                   const std::size_t screen_height,
-                   const std::size_t grid_width, const std::size_t grid_height)
+//constructor
+Renderer::Renderer(const std::size_t screen_width, const std::size_t screen_height, const std::size_t grid_width, const std::size_t grid_height)
     : screen_width(screen_width),
       screen_height(screen_height),
       grid_width(grid_width),
       grid_height(grid_height) {
+  
   // Initialize SDL
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     std::cerr << "SDL could not initialize.\n";
     std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
   }
 
-  // Create Window
+  // Create Windows
   sdl_window = SDL_CreateWindow("Car Game", SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED, screen_width,
                                 screen_height, SDL_WINDOW_SHOWN);
@@ -33,43 +33,28 @@ Renderer::Renderer(const std::size_t screen_width,
   }
 }
 
+//destructor
 Renderer::~Renderer() {
   SDL_DestroyWindow(sdl_window);
   SDL_Quit();
 }
 
-void Renderer::Render(Car const car, SDL_Point const &food) {
+void Renderer::Render(Car const car) {
   SDL_Rect block;
   block.w = screen_width / grid_width;
   block.h = screen_height / grid_height;
 
   // Clear screen
-  SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
-  SDL_RenderClear(sdl_renderer);
+  //                                     R    G      B   Alpha: opacity
+  SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0xFF, 0xFF); // set blue color to the background
+  SDL_RenderClear(sdl_renderer); // draw the color
 
-  // Render food
-  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF);
-  block.x = food.x * block.w;
-  block.y = food.y * block.h;
-  SDL_RenderFillRect(sdl_renderer, &block);
 
   // Render car's body
-  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-  for (SDL_Point const &point : car.body) {
-    block.x = point.x * block.w;
-    block.y = point.y * block.h;
-    SDL_RenderFillRect(sdl_renderer, &block);
-  }
-
-  // Render car's head
-  block.x = static_cast<int>(car.head_x) * block.w;
-  block.y = static_cast<int>(car.head_y) * block.h;
-  if (car.alive) {
-    SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x7A, 0xCC, 0xFF);
-  } else {
-    SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
-  }
-  SDL_RenderFillRect(sdl_renderer, &block);
+  block.x = static_cast<int>(car.PosX) * block.w;
+  block.y = static_cast<int>(car.PosY) * block.h;
+  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF); // set red color
+  SDL_RenderFillRect(sdl_renderer, &block); //draws a rectangle
 
   // Update Screen
   SDL_RenderPresent(sdl_renderer);

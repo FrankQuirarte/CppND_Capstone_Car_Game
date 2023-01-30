@@ -8,31 +8,26 @@ class Car {
  public:
   enum class Direction { kUp, kDown, kLeft, kRight };
 
+  // car constructor, puts the car in the middle of the screen
   Car(int grid_width, int grid_height)
       : grid_width(grid_width),
         grid_height(grid_height),
-        head_x(grid_width / 2),
-        head_y(grid_height / 2) {}
+        PosX(grid_width / 2),
+        PosY(grid_height / 2) {}
 
-  void Update();
+  void UpdateCarPosition();
 
-  void GrowBody();
-  bool SnakeCell(int x, int y);
+  //not default direction during game start
+  Direction direction;
 
-  Direction direction = Direction::kUp;
-
-  float speed{0.1f};
-  int size{1};
+  float CalbSpeed{0.1f};
   bool alive{true};
-  float head_x;
-  float head_y;
-  std::vector<SDL_Point> body;
-
+  float PosX;
+  float PosY;
+  float VelX;
+  float VelY;
+  
  private:
-  void UpdateHead();
-  void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell);
-
-  bool growing{false};
   int grid_width;
   int grid_height;
 };
