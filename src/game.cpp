@@ -1,6 +1,6 @@
 #include "game.h"
 #include <iostream>
-#include "SDL.h"
+#include <SDL2/SDL.h>
 
 //constructor
 Game::Game(std::size_t grid_width, std::size_t grid_height)

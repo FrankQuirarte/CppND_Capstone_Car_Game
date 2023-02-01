@@ -1,6 +1,9 @@
 #include "renderer.h"
+#include "texture.h"
 #include <iostream>
 #include <string>
+
+LTexture gDotTexture;
 
 //constructor
 Renderer::Renderer(const std::size_t screen_width, const std::size_t screen_height, const std::size_t grid_width, const std::size_t grid_height)
@@ -51,10 +54,27 @@ void Renderer::Render(Car const car) {
 
 
   // Render car's body
+  /*
   block.x = static_cast<int>(car.PosX) * block.w;
   block.y = static_cast<int>(car.PosY) * block.h;
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF); // set red color
   SDL_RenderFillRect(sdl_renderer, &block); //draws a rectangle
+  */
+  
+  //Initialize PNG loading image 
+  int imgFlags = IMG_INIT_PNG;
+  if( !( IMG_Init( imgFlags ) & imgFlags ) )
+  {
+    std::cout << "SDL_image could not initialize! SDL_image Error: %s" << IMG_GetError() << "\n";
+  }
+  // Render car's picture
+  if( !gDotTexture.loadFromFile("dot.bmp", sdl_renderer ) )
+  {
+    std::cout << "Failed to load dot image!" << "\n";
+  }
+  //Show the car
+	gDotTexture.render( car.PosX, car.PosY, sdl_renderer);
+
 
   // Update Screen
   SDL_RenderPresent(sdl_renderer);

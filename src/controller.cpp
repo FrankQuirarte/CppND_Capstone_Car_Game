@@ -1,6 +1,6 @@
 #include "controller.h"
 #include <iostream>
-#include "SDL.h"
+#include <SDL2/SDL.h>
 #include "car.h"
 
 void Controller::ChangeDirection(Car &car, Car::Direction input, Car::Direction opposite) const {

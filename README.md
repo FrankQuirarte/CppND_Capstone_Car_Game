@@ -4,8 +4,18 @@ This is my Capstone project for the [Udacity C++ Nanodegree Program](https://www
 
 The code for this repo was inspired by [example snake game](https://github.com/udacity/CppND-Capstone-Snake-Game) and many other great online tutorials like:
 
-[Lazy Foo' Beginning Game Programming v2.0] https://lazyfoo.net/tutorials/SDL/index.php
+[Lazy Foo' Beginning Game Programming v2.0] (https://lazyfoo.net/tutorials/SDL/index.php)
 
+
+## TO DO list
+* Render a background
+* Render a moving background
+* Render a car instead of square
+* Render enemies
+* Generate ranmdom enemies
+* Make score mechanism
+* Detect crashes
+* Stop the game when there is a crash
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
