@@ -81,12 +81,12 @@ clean: CMakeFiles/CarGame.dir/clean
 CMakeFiles/CarGame.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CarGame.dir/build.make CMakeFiles/CarGame.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CarGame.dir/build.make CMakeFiles/CarGame.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target CarGame"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target CarGame"
 .PHONY : CMakeFiles/CarGame.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/CarGame.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/CarGame.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles 0
 .PHONY : CMakeFiles/CarGame.dir/rule

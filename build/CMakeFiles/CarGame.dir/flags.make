@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/g++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/include/SDL2 -I/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src
+CXX_INCLUDES = -I/usr/include/SDL2
 
-CXX_FLAGS = -g   -std=c++17 -std=gnu++17
+CXX_FLAGS =  -std=c++0x -g
 

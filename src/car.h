@@ -12,8 +12,8 @@ class Car {
   Car(int grid_width, int grid_height)
       : grid_width(grid_width),
         grid_height(grid_height),
-        PosX(grid_width / 2),
-        PosY(grid_height) {}
+        PosX(220),
+        PosY(450) {}
 
   void UpdateCarPosition();
 

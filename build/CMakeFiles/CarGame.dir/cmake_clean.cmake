@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/CarGame.dir/src/main.cpp.o.d"
   "CMakeFiles/CarGame.dir/src/renderer.cpp.o"
   "CMakeFiles/CarGame.dir/src/renderer.cpp.o.d"
+  "CMakeFiles/CarGame.dir/src/texture.cpp.o"
+  "CMakeFiles/CarGame.dir/src/texture.cpp.o.d"
   "CarGame"
   "CarGame.pdb"
 )

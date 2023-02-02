@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/game.cpp" "CMakeFiles/CarGame.dir/src/game.cpp.o" "gcc" "CMakeFiles/CarGame.dir/src/game.cpp.o.d"
   "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/main.cpp" "CMakeFiles/CarGame.dir/src/main.cpp.o" "gcc" "CMakeFiles/CarGame.dir/src/main.cpp.o.d"
   "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/renderer.cpp" "CMakeFiles/CarGame.dir/src/renderer.cpp.o" "gcc" "CMakeFiles/CarGame.dir/src/renderer.cpp.o.d"
+  "/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/texture.cpp" "CMakeFiles/CarGame.dir/src/texture.cpp.o" "gcc" "CMakeFiles/CarGame.dir/src/texture.cpp.o.d"
   )
 
 # Targets to which this target links.

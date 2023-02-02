@@ -68,7 +68,7 @@ void Renderer::Render(Car const car) {
     std::cout << "SDL_image could not initialize! SDL_image Error: %s" << IMG_GetError() << "\n";
   }
   // Render car's picture
-  if( !gDotTexture.loadFromFile("dot.bmp", sdl_renderer ) )
+  if( !gDotTexture.loadFromFile("../resources/carPicture.bmp", sdl_renderer ) )
   {
     std::cout << "Failed to load dot image!" << "\n";
   }
