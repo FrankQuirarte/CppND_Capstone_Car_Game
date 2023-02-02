@@ -81,7 +81,7 @@ void Renderer::Render(Car const car) {
   // Render car's picture
   if( !gCarTexture.loadFromFile("../resources/carPicture.bmp", sdl_renderer ) )
   {
-    std::cout << "Failed to load dot image!" << "\n";
+    std::cout << "Failed to load car image!" << "\n";
   }
   //Show the car
 	gCarTexture.render( car.PosX, car.PosY, sdl_renderer);

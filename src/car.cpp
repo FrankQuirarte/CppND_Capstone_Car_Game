@@ -6,11 +6,11 @@
 void Car::UpdateCarPosition() {
   SDL_Point prev_cell{ static_cast<int>(PosX), static_cast<int>(PosY)};  // We first capture the car's cell before updating.
   
-    //Move the dot left or right
+    //Move the car left or right
     PosX += VelX;
 
-    //If the dot went too far to the left or right
-    if( ( PosX < 0 ) || ( PosX + grid_width / 2 > 640 ) )
+    //If the car went too far to the left or right stop the movement
+    if( ( PosX < 0 ) || ( PosX > 400 ) )
     {
         //Move back
         PosX -= VelX;

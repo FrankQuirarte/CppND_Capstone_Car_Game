@@ -20,7 +20,7 @@ class Car {
   //not default direction during game start
   Direction direction;
 
-  float CalbSpeed{0.1f};
+  float CalbSpeed = 10.5;
   bool alive{true};
   float PosX;
   float PosY;
