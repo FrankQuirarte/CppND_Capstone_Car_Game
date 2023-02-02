@@ -3,7 +3,8 @@
 #include <iostream>
 #include <string>
 
-LTexture gDotTexture;
+LTexture gCarTexture;
+LTexture gBackGroundTexture;
 
 //constructor
 Renderer::Renderer(const std::size_t screen_width, const std::size_t screen_height, const std::size_t grid_width, const std::size_t grid_height)
@@ -49,11 +50,11 @@ void Renderer::Render(Car const car) {
 
   // Clear screen
   //                                     R    G      B   Alpha: opacity
-  SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0xFF, 0xFF); // set blue color to the background
+  SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x0, 0x00, 0xFF); // set black color to the background
   SDL_RenderClear(sdl_renderer); // draw the color
 
 
-  // Render car's body
+  // Render a rectangle as car's body
   /*
   block.x = static_cast<int>(car.PosX) * block.w;
   block.y = static_cast<int>(car.PosY) * block.h;
@@ -67,13 +68,23 @@ void Renderer::Render(Car const car) {
   {
     std::cout << "SDL_image could not initialize! SDL_image Error: %s" << IMG_GetError() << "\n";
   }
+
+  // Render highway background
+  if( !gBackGroundTexture.loadFromFile("../resources/background.bmp", sdl_renderer ) )
+  {
+    std::cout << "Failed to load background image!" << "\n";
+  }
+  //Show the car
+  gBackGroundTexture.render( 0, 0, sdl_renderer);
+
+
   // Render car's picture
-  if( !gDotTexture.loadFromFile("../resources/carPicture.bmp", sdl_renderer ) )
+  if( !gCarTexture.loadFromFile("../resources/carPicture.bmp", sdl_renderer ) )
   {
     std::cout << "Failed to load dot image!" << "\n";
   }
   //Show the car
-	gDotTexture.render( car.PosX, car.PosY, sdl_renderer);
+	gCarTexture.render( car.PosX, car.PosY, sdl_renderer);
 
 
   // Update Screen
