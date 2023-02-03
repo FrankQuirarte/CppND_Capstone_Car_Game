@@ -7,11 +7,8 @@ LTexture gCarTexture;
 LTexture gBackGroundTexture;
 
 //constructor
-Renderer::Renderer(const std::size_t screen_width, const std::size_t screen_height, const std::size_t grid_width, const std::size_t grid_height)
-    : screen_width(screen_width),
-      screen_height(screen_height),
-      grid_width(grid_width),
-      grid_height(grid_height) {
+Renderer::Renderer(const std::size_t screen_width, const std::size_t screen_height) : screen_width(screen_width), screen_height(screen_height)
+{
   
   // Initialize SDL
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -63,10 +60,7 @@ void Renderer::RenderBackGround() {
 
 
 void Renderer::Render(Car const car) {
-  SDL_Rect block;
-  block.w = screen_width / grid_width;
-  block.h = screen_height / grid_height;
-
+  
   // Clear screen and set black color to the background
   //                                     R    G      B   Alpha: opacity
   //SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x0, 0x00, 0xFF);

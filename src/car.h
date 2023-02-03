@@ -8,12 +8,8 @@ class Car {
  public:
   enum class Direction { kUp, kDown, kLeft, kRight };
 
-  // car constructor, puts the car in the middle botton of the screen
-  Car(int grid_width, int grid_height)
-      : grid_width(grid_width),
-        grid_height(grid_height),
-        PosX(220),
-        PosY(450) {}
+  // car constructor, 
+  Car(int startPosX, int startPosY) : PosX(startPosX), PosY(startPosY) {}
 
   void UpdateCarPosition();
 
@@ -28,8 +24,8 @@ class Car {
   float VelY;
   
  private:
-  int grid_width;
-  int grid_height;
+  //int grid_width;
+  //int grid_height;
 };
 
 #endif

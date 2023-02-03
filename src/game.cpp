@@ -3,13 +3,10 @@
 #include <SDL2/SDL.h>
 
 //constructor
-Game::Game(std::size_t grid_width, std::size_t grid_height)
-    : car(grid_width, grid_height),
-      engine(dev()),
-      random_w(0, static_cast<int>(grid_width - 1)),
-      random_h(0, static_cast<int>(grid_height - 1)) 
+Game::Game( )
+  :car(CAR_X_START_POSITION, CAR_Y_START_POSITION)
 {
-  //PlaceEnemy();
+  //place enemy (enemy1)
 }
 
 

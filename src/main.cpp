@@ -11,12 +11,10 @@ int main() {
   constexpr std::size_t kScreenWidth{642};
   constexpr std::size_t kScreenHeight{615};
   
-  constexpr std::size_t kGridWidth{32};
-  constexpr std::size_t kGridHeight{32};
 
-  Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
+  Renderer renderer(kScreenWidth, kScreenHeight);
   Controller controller;
-  Game game(kGridWidth, kGridHeight);
+  Game game;
   game.Run(controller, renderer, kMsPerFrame);
   
   std::cout << "Game has terminated successfully!\n";
