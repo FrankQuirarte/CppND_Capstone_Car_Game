@@ -10,7 +10,7 @@ void Car::UpdateCarPosition() {
     PosX += VelX;
 
     //If the car went too far to the left or right stop the movement
-    if( ( PosX < 0 ) || ( PosX > 400 ) )
+    if( ( PosX < 0 ) || ( PosX > 390 ) )
     {
         //Move back
         PosX -= VelX;

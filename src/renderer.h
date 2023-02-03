@@ -17,6 +17,7 @@ class Renderer {
   //methods:
   //renders the car and enemies
   void Render(Car const car);
+  void RenderBackGround();
   //updates the upper bar in the game window
   void UpdateWindowTitle(int score, int fps);
   SDL_Renderer *sdl_renderer;

@@ -35,6 +35,14 @@ Renderer::Renderer(const std::size_t screen_width, const std::size_t screen_heig
     std::cerr << "Renderer could not be created.\n";
     std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
   }
+
+  //Initialize PNG loading image 
+  int imgFlags = IMG_INIT_PNG;
+  if( !( IMG_Init( imgFlags ) & imgFlags ) )
+  {
+    std::cout << "SDL_image could not initialize! SDL_image Error: %s" << IMG_GetError() << "\n";
+  }
+
 }
 
 //destructor
@@ -43,15 +51,28 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
+void Renderer::RenderBackGround() {
+  // Render highway background
+  if( !gBackGroundTexture.loadFromFile("../resources/background.bmp", sdl_renderer ) )
+  {
+    std::cout << "Failed to load background image!" << "\n";
+  }
+  //Show the background
+  gBackGroundTexture.render( 0, 0, sdl_renderer);
+}
+
+
 void Renderer::Render(Car const car) {
   SDL_Rect block;
   block.w = screen_width / grid_width;
   block.h = screen_height / grid_height;
 
-  // Clear screen
+  // Clear screen and set black color to the background
   //                                     R    G      B   Alpha: opacity
-  SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x0, 0x00, 0xFF); // set black color to the background
-  SDL_RenderClear(sdl_renderer); // draw the color
+  //SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x0, 0x00, 0xFF);
+  //SDL_RenderClear(sdl_renderer); // draw the color
+
+  Renderer::RenderBackGround();
 
 
   // Render a rectangle as car's body
@@ -61,22 +82,6 @@ void Renderer::Render(Car const car) {
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF); // set red color
   SDL_RenderFillRect(sdl_renderer, &block); //draws a rectangle
   */
-  
-  //Initialize PNG loading image 
-  int imgFlags = IMG_INIT_PNG;
-  if( !( IMG_Init( imgFlags ) & imgFlags ) )
-  {
-    std::cout << "SDL_image could not initialize! SDL_image Error: %s" << IMG_GetError() << "\n";
-  }
-
-  // Render highway background
-  if( !gBackGroundTexture.loadFromFile("../resources/background.bmp", sdl_renderer ) )
-  {
-    std::cout << "Failed to load background image!" << "\n";
-  }
-  //Show the car
-  gBackGroundTexture.render( 0, 0, sdl_renderer);
-
 
   // Render car's picture
   if( !gCarTexture.loadFromFile("../resources/carPicture.bmp", sdl_renderer ) )
