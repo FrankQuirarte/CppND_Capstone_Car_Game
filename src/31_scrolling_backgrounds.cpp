@@ -10,8 +10,28 @@ and may not be redistributed without written permission.*/
 //Screen dimension constants
 const int SCREEN_WIDTH = 1043;
 const int SCREEN_HEIGHT = 819;
+
+//Highway limits
 const int HIGHWAY_UPPER_LIMIT = 200;
 const int HIGHWAY_LOWER_LIMIT = 600;
+
+//The dimensions and start position of the car
+static const int CAR_X_START_POS = 0;
+static const int CAR_Y_START_POS = 400;
+static const int CAR_WIDTH = 173;
+static const int CAR_HEIGHT = 60;
+
+//The dimensions and start position of the blue enemy 1 car
+static const int ENEMY1_X_START_POS = 800;
+static const int ENEMY1_Y_START_POS = 250;
+static const int ENEMY1_WIDTH = 191;
+static const int ENEMY1_HEIGHT = 59;
+
+//The dimensions and start position of the purple enemy 2 car
+static const int ENEMY2_X_START_POS = 800;
+static const int ENEMY2_Y_START_POS = 500;
+static const int ENEMY2_WIDTH = 181; 
+static const int ENEMY2_HEIGHT = 58;
 
 //Texture wrapper class
 class LTexture
@@ -59,44 +79,36 @@ class LTexture
 		int mHeight;
 };
 
-//The car that will move around on the screen
+
 class Car
 {
-    public:
-		//The dimensions of the car
-		static const int CAR_WIDTH = 173;
-		static const int CAR_HEIGHT = 60;
+  public:
 
 		//Maximum axis velocity of the car
-		static const int DOT_VEL = 5;
+		static const int CAR_VEL = 7;
 
 		//Initializes the variables
-		Car(); //Car( int x, int y );
+		Car(int PosX, int PosY, int carWidth, int carHeight);
 
 		//Takes key presses and adjusts the car's velocity
 		void handleEvent( SDL_Event& e );
 
-		//Moves the car  //Moves the car and checks collision
-		void move(); //void move( std::vector<SDL_Rect>& otherColliders );
+		//Moves the car and checks collisions agains the enemies
+		void move(SDL_Rect& collisionRect1, SDL_Rect& collisionRect2);
 		
 		//Shows the car on the screen
-		void render();
+		void render(LTexture &gTexture);
 		
-		//Gets the collision boxes
-		//std::vector<SDL_Rect>& getColliders();
+    //Car's collision box
+		SDL_Rect mCollider;
 
-    private:
+  private:
 		//The X and Y offsets of the car
 		int mPosX, mPosY;
 
 		//The velocity of the car
 		int mVelX, mVelY;
 
-		//Car's collision boxes
-	    //std::vector<SDL_Rect> mColliders;
-
-		//Moves the collision boxes relative to the car's offset
-		//void shiftColliders();
 };
 
 //Starts up SDL and creates window
@@ -109,7 +121,7 @@ bool loadMedia();
 void close();
 
 //Box set collision detector
-//bool checkCollision( std::vector<SDL_Rect>& a, std::vector<SDL_Rect>& b );
+bool checkCollision( SDL_Rect carColliderBox, SDL_Rect enemyColliderBox );
 
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
@@ -271,15 +283,21 @@ int LTexture::getHeight()
 	return mHeight;
 }
 
-Car::Car()
+Car::Car(int PosX, int PosY, int carWidth, int carHeight)
 {
-    //Initialize the offsets
-    mPosX = 0;
-    mPosY = 400;
+  //Initialize the offsets
+  mPosX = PosX;
+  mPosY = PosY;
 
-    //Initialize the velocity
-    mVelX = 0;
-    mVelY = 0;
+  //Set collision box dimension
+  mCollider.x = PosX;
+  mCollider.y = PosY;
+  mCollider.w = carWidth;
+  mCollider.h = carHeight;
+
+  //Initialize the velocity
+  mVelX = 0;
+  mVelY = 0;
 }
 
 void Car::handleEvent( SDL_Event& e )
@@ -290,10 +308,10 @@ void Car::handleEvent( SDL_Event& e )
         //Adjust the velocity
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: mVelY -= DOT_VEL; break;
-            case SDLK_DOWN: mVelY += DOT_VEL; break;
-            case SDLK_LEFT: mVelX -= DOT_VEL; break;
-            case SDLK_RIGHT: mVelX += DOT_VEL; break;
+            case SDLK_UP: mVelY -= CAR_VEL; break;
+            case SDLK_DOWN: mVelY += CAR_VEL; break;
+            case SDLK_LEFT: mVelX -= CAR_VEL; break;
+            case SDLK_RIGHT: mVelX += CAR_VEL; break;
         }
     }
     //If a key was released
@@ -302,41 +320,47 @@ void Car::handleEvent( SDL_Event& e )
         //Adjust the velocity
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: mVelY += DOT_VEL; break;
-            case SDLK_DOWN: mVelY -= DOT_VEL; break;
-            case SDLK_LEFT: mVelX += DOT_VEL; break;
-            case SDLK_RIGHT: mVelX -= DOT_VEL; break;
+            case SDLK_UP: mVelY += CAR_VEL; break;
+            case SDLK_DOWN: mVelY -= CAR_VEL; break;
+            case SDLK_LEFT: mVelX += CAR_VEL; break;
+            case SDLK_RIGHT: mVelX -= CAR_VEL; break;
         }
     }
 }
 
-void Car::move()
+void Car::move(SDL_Rect& collisionRect1, SDL_Rect& collisionRect2)
 {
     //Move the car left or right
     mPosX += mVelX;
+    mCollider.x = mPosX;
+    
 
     //If the car went too far to the left or right
-    if( ( mPosX < 0 ) || ( mPosX + CAR_WIDTH > SCREEN_WIDTH ) )
+    if( (mPosX < 0) || (mPosX + CAR_WIDTH > SCREEN_WIDTH) || checkCollision(mCollider, collisionRect1) || checkCollision(mCollider, collisionRect2) )
     {
         //Move back
         mPosX -= mVelX;
+        mCollider.x = mPosX;
     }
 
     //Move the car up or down
     mPosY += mVelY;
+    mCollider.y = mPosY;
 
     //If the car went too far up or down (reached the highway limts)
-    if( ( mPosY < HIGHWAY_UPPER_LIMIT) || ( mPosY + CAR_HEIGHT > HIGHWAY_LOWER_LIMIT) )
+    if( ( mPosY < HIGHWAY_UPPER_LIMIT) || ( mPosY + CAR_HEIGHT > HIGHWAY_LOWER_LIMIT) || checkCollision(mCollider, collisionRect1) || checkCollision(mCollider, collisionRect2) )
     {
         //Move back
         mPosY -= mVelY;
+        mCollider.y = mPosY;
     }
+    
 }
 
-void Car::render()
+void Car::render(LTexture &gTexture)
 {
     //Show the car
-	gCarTexture.render( mPosX, mPosY );
+	gTexture.render( mPosX, mPosY );
 }
 
 bool init()
@@ -359,7 +383,7 @@ bool init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( "Car game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -405,6 +429,20 @@ bool loadMedia()
 		success = false;
 	}
 
+	//Load enemy1 texture
+	if( !gEnemy1Texture.loadFromFile( "blue_car.bmp" ) )
+	{
+		printf( "Failed to load enemy1 texture!\n" );
+		success = false;
+	}
+
+	//Load enemy2 texture
+	if( !gEnemy2Texture.loadFromFile( "purple_car.bmp" ) )
+	{
+		printf( "Failed to load enemy2 texture!\n" );
+		success = false;
+	}
+
 	//Load background texture
 	if( !gBGTexture.loadFromFile( "background.bmp" ) )
 	{
@@ -419,6 +457,8 @@ void close()
 {
 	//Free loaded images
 	gCarTexture.free();
+	gEnemy1Texture.free();
+	gEnemy2Texture.free();
 	gBGTexture.free();
 
 	//Destroy window	
@@ -431,6 +471,64 @@ void close()
 	IMG_Quit();
 	SDL_Quit();
 }
+
+
+bool checkCollision( SDL_Rect carColliderBox, SDL_Rect enemyColliderBox )
+{
+    //The sides of the rectangles
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+
+    //Calculate the sides of rect A
+    leftA = carColliderBox.x;
+    rightA = carColliderBox.x + carColliderBox.w;
+    topA = carColliderBox.y;
+    bottomA = carColliderBox.y + carColliderBox.h;
+
+    //Calculate the sides of rect B
+    leftB = enemyColliderBox.x;
+    rightB = enemyColliderBox.x + enemyColliderBox.w;
+    topB = enemyColliderBox.y;
+    bottomB = enemyColliderBox.y + enemyColliderBox.h;
+
+    //If any of the sides from A are outside of B
+    if( bottomA <= topB )
+    {
+        return false;
+    }
+
+    if( topA >= bottomB )
+    {
+        return false;
+    }
+
+    if( rightA <= leftB )
+    {
+        return false;
+    }
+
+    if( leftA >= rightB )
+    {
+        return false;
+    }
+
+    //If we cannot find any separation, then there is a collision
+    return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 int main( int argc, char* args[] )
 {
@@ -454,8 +552,11 @@ int main( int argc, char* args[] )
 			//Event handler
 			SDL_Event e;
 
-			//The car that will be moving around on the screen
-			Car car;
+			//Creates the players car to and place it in the middle of the highway
+			Car car(CAR_X_START_POS, CAR_Y_START_POS, CAR_WIDTH, CAR_HEIGHT);
+			//Creates enemies that the car needs to dodge
+			Car enemy1(ENEMY1_X_START_POS, ENEMY1_Y_START_POS, ENEMY1_WIDTH, ENEMY1_HEIGHT);
+			Car enemy2(ENEMY2_X_START_POS, ENEMY2_Y_START_POS, ENEMY2_WIDTH, ENEMY2_HEIGHT);
 
 			//The background scrolling offset
 			int scrollingOffset = 0;
@@ -476,8 +577,12 @@ int main( int argc, char* args[] )
 					car.handleEvent( e );
 				}
 
-				//Move the car
-				car.move();
+        //Move the car
+				car.move(enemy1.mCollider , enemy2.mCollider);
+
+				//moves the enemies
+				//enemy1.enemiesHorizontalMove();
+				//enemy2.enemiesHorizontalMove();
 
 				//Scroll background
 				--scrollingOffset;
@@ -495,8 +600,17 @@ int main( int argc, char* args[] )
 				gBGTexture.render( scrollingOffset + gBGTexture.getHeight(), 0 );
 
 				//Render objects
-				car.render();
+				car.render(gCarTexture);
+				enemy1.render(gEnemy1Texture);
+				enemy2.render(gEnemy2Texture);
 
+        //Render enemies collieder boxes
+				SDL_SetRenderDrawColor( gRenderer, 0xC0, 0xC0, 0xC0, 0xFF );//gray
+				SDL_RenderDrawRect( gRenderer, &enemy1.mCollider );
+        
+        SDL_SetRenderDrawColor( gRenderer, 0xC0, 0xC0, 0xC0, 0xFF );//gray
+				SDL_RenderDrawRect( gRenderer, &enemy2.mCollider );
+				
 				//Update screen
 				SDL_RenderPresent( gRenderer );
 			}
