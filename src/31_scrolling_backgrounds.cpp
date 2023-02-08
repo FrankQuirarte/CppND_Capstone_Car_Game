@@ -6,6 +6,8 @@ and may not be redistributed without written permission.*/
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include <string>
+#include <unistd.h> //library for sleep()
+#include <cstdlib> //library for rand()
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 1043;
@@ -22,16 +24,23 @@ static const int CAR_WIDTH = 173;
 static const int CAR_HEIGHT = 60;
 
 //The dimensions and start position of the blue enemy 1 car
-static const int ENEMY1_X_START_POS = 800;
+static const int ENEMY1_X_START_POS = 1200;
 static const int ENEMY1_Y_START_POS = 250;
 static const int ENEMY1_WIDTH = 191;
 static const int ENEMY1_HEIGHT = 59;
 
 //The dimensions and start position of the purple enemy 2 car
-static const int ENEMY2_X_START_POS = 800;
+static const int ENEMY2_X_START_POS = 1800;
 static const int ENEMY2_Y_START_POS = 500;
 static const int ENEMY2_WIDTH = 181; 
 static const int ENEMY2_HEIGHT = 58;
+
+
+//Main loop flag
+bool quit = false;
+
+//Game score
+int GameScore = 0;
 
 //Texture wrapper class
 class LTexture
@@ -85,7 +94,8 @@ class Car
   public:
 
 		//Maximum axis velocity of the car
-		static const int CAR_VEL = 7;
+		int CAR_VEL = 5;
+    int ENEMY_VEL = 2;
 
 		//Initializes the variables
 		Car(int PosX, int PosY, int carWidth, int carHeight);
@@ -95,7 +105,9 @@ class Car
 
 		//Moves the car and checks collisions agains the enemies
 		void move(SDL_Rect& collisionRect1, SDL_Rect& collisionRect2);
-		
+
+    void enemyHorizontalMove();
+
 		//Shows the car on the screen
 		void render(LTexture &gTexture);
 		
@@ -134,6 +146,7 @@ LTexture gCarTexture;
 LTexture gEnemy1Texture;
 LTexture gEnemy2Texture;
 LTexture gBGTexture;
+LTexture gGOTexture;
 
 LTexture::LTexture()
 {
@@ -302,7 +315,7 @@ Car::Car(int PosX, int PosY, int carWidth, int carHeight)
 
 void Car::handleEvent( SDL_Event& e )
 {
-    //If a key was pressed
+  //If a key was pressed
 	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
     {
         //Adjust the velocity
@@ -336,9 +349,9 @@ void Car::move(SDL_Rect& collisionRect1, SDL_Rect& collisionRect2)
     
 
     //If the car went too far to the left or right
-    if( (mPosX < 0) || (mPosX + CAR_WIDTH > SCREEN_WIDTH) || checkCollision(mCollider, collisionRect1) || checkCollision(mCollider, collisionRect2) )
+    if( (mPosX < 0) || (mPosX + CAR_WIDTH > SCREEN_WIDTH)  )
     {
-        //Move back
+        //Move back the object, so it doest surpass the screen width limits
         mPosX -= mVelX;
         mCollider.x = mPosX;
     }
@@ -348,14 +361,48 @@ void Car::move(SDL_Rect& collisionRect1, SDL_Rect& collisionRect2)
     mCollider.y = mPosY;
 
     //If the car went too far up or down (reached the highway limts)
-    if( ( mPosY < HIGHWAY_UPPER_LIMIT) || ( mPosY + CAR_HEIGHT > HIGHWAY_LOWER_LIMIT) || checkCollision(mCollider, collisionRect1) || checkCollision(mCollider, collisionRect2) )
+    if( ( mPosY < HIGHWAY_UPPER_LIMIT) || ( mPosY + CAR_HEIGHT > HIGHWAY_LOWER_LIMIT) )
     {
-        //Move back
+        //Move the object back, so it doest surpass the highway limts
         mPosY -= mVelY;
         mCollider.y = mPosY;
     }
-    
+
+    if(checkCollision(mCollider, collisionRect1) || checkCollision(mCollider, collisionRect2)){
+      quit = true;
+    }
 }
+
+void Car::enemyHorizontalMove()
+{
+    
+    // variables for the upper and lower boundaries for the random number generator
+    int lbx = SCREEN_WIDTH + ENEMY1_WIDTH; 
+    int ubx = 3000; //magic number
+    
+    int lby = HIGHWAY_UPPER_LIMIT; 
+    int uby = HIGHWAY_LOWER_LIMIT;
+    
+    //Move the car from  the right to left until it desapears from screen
+    mPosX -= ENEMY_VEL;
+    mCollider.x = mPosX;
+    
+    // here we could check if the enemy doesnt crash agains the player instead of the other way around
+
+    //if the car is out of the screen, generate a new random position in the left outside part
+    if(mPosX < -ENEMY1_WIDTH) 
+    {
+      //mPosX = ENEMY1_X_START_POS;
+      mPosX = rand() % (ubx - lbx + 1) + lbx;
+      mCollider.x = mPosX;
+      mPosY = rand() % (uby - lby + 1) + lby;
+      mCollider.y = mPosY;
+      //if the enemy is out of the screen and there was not collision, increment the score
+      GameScore++;
+      ENEMY_VEL++;
+    }
+}
+
 
 void Car::render(LTexture &gTexture)
 {
@@ -413,7 +460,6 @@ bool init()
 			}
 		}
 	}
-
 	return success;
 }
 
@@ -432,24 +478,30 @@ bool loadMedia()
 	//Load enemy1 texture
 	if( !gEnemy1Texture.loadFromFile( "blue_car.bmp" ) )
 	{
-		printf( "Failed to load enemy1 texture!\n" );
+		printf( "Failed to load enemy1 image!\n" );
 		success = false;
 	}
 
 	//Load enemy2 texture
 	if( !gEnemy2Texture.loadFromFile( "purple_car.bmp" ) )
 	{
-		printf( "Failed to load enemy2 texture!\n" );
+		printf( "Failed to load enemy2 image!\n" );
 		success = false;
 	}
 
 	//Load background texture
 	if( !gBGTexture.loadFromFile( "background.bmp" ) )
 	{
-		printf( "Failed to load background texture!\n" );
+		printf( "Failed to load background image!\n" );
 		success = false;
 	}
 
+  //Load game over texture
+	if( !gGOTexture.loadFromFile( "game_over.bmp" ) )
+	{
+		printf( "Failed to load game_over image!\n" );
+		success = false;
+	}
 	return success;
 }
 
@@ -460,6 +512,7 @@ void close()
 	gEnemy1Texture.free();
 	gEnemy2Texture.free();
 	gBGTexture.free();
+  gGOTexture.free();
 
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
@@ -519,20 +572,27 @@ bool checkCollision( SDL_Rect carColliderBox, SDL_Rect enemyColliderBox )
 }
 
 
+void drawGameOver()
+{
+  Car gameOver(150,250,771,320); //crate gameover object
+  gameOver.render(gGOTexture); //render image
+  SDL_RenderPresent( gRenderer ); //Update screen
+  sleep(2); //sleep for two seconds
+}
 
 
-
-
-
-
-
-
-
-
+void UpdateScoreWindowTitle(int fps, int level) 
+{
+  std::string title{"Car Game  Score:" + std::to_string(GameScore) + "   Level:" + std::to_string(level) + "   FPS:" + std::to_string(fps)};
+  SDL_SetWindowTitle(gWindow, title.c_str());
+}
 
 int main( int argc, char* args[] )
 {
-	//Start up SDL and create window
+  int title_timestamp = SDL_GetTicks();
+  int frame_start, frame_end, frame_duration, frame_count = 0;
+  
+  //Start up SDL and create window
 	if( !init() )
 	{
 		printf( "Failed to initialize!\n" );
@@ -546,9 +606,6 @@ int main( int argc, char* args[] )
 		}
 		else
 		{	
-			//Main loop flag
-			bool quit = false;
-
 			//Event handler
 			SDL_Event e;
 
@@ -564,7 +621,10 @@ int main( int argc, char* args[] )
 			//While application is running
 			while( !quit )
 			{
-				//Handle events on queue
+				
+        frame_start = SDL_GetTicks();
+
+        //Handle events on queue
 				while( SDL_PollEvent( &e ) != 0 )
 				{
 					//User requests quit
@@ -581,8 +641,8 @@ int main( int argc, char* args[] )
 				car.move(enemy1.mCollider , enemy2.mCollider);
 
 				//moves the enemies
-				//enemy1.enemiesHorizontalMove();
-				//enemy2.enemiesHorizontalMove();
+				enemy1.enemyHorizontalMove();
+				enemy2.enemyHorizontalMove();
 
 				//Scroll background
 				--scrollingOffset;
@@ -592,33 +652,47 @@ int main( int argc, char* args[] )
 				}
 
 				//Clear screen
-				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-				SDL_RenderClear( gRenderer );
+				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				SDL_RenderClear(gRenderer);
 
-				//Render background
-				gBGTexture.render( scrollingOffset, 0 );
-				gBGTexture.render( scrollingOffset + gBGTexture.getHeight(), 0 );
+				//Render moving background
+				gBGTexture.render(scrollingOffset, 0);
+				gBGTexture.render(scrollingOffset + gBGTexture.getHeight(), 0);
 
-				//Render objects
+				//Render car objects
 				car.render(gCarTexture);
 				enemy1.render(gEnemy1Texture);
 				enemy2.render(gEnemy2Texture);
 
         //Render enemies collieder boxes
-				SDL_SetRenderDrawColor( gRenderer, 0xC0, 0xC0, 0xC0, 0xFF );//gray
-				SDL_RenderDrawRect( gRenderer, &enemy1.mCollider );
-        
-        SDL_SetRenderDrawColor( gRenderer, 0xC0, 0xC0, 0xC0, 0xFF );//gray
-				SDL_RenderDrawRect( gRenderer, &enemy2.mCollider );
-				
+				//SDL_SetRenderDrawColor( gRenderer, 0xC0, 0xC0, 0xC0, 0xFF ); //gray
+        SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF); // red
+				SDL_RenderDrawRect(gRenderer, &enemy1.mCollider);
+        SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF); // red
+				SDL_RenderDrawRect(gRenderer, &enemy2.mCollider);
+
 				//Update screen
-				SDL_RenderPresent( gRenderer );
+				SDL_RenderPresent(gRenderer);
+       
+        frame_end = SDL_GetTicks();
+
+        // Keep track of how long each loop through the input/update/render cycle takes.
+        frame_count++;
+        frame_duration = frame_end - frame_start;
+        
+        // After every second, update the window title.
+        if (frame_end - title_timestamp >= 1000) {
+          UpdateScoreWindowTitle(frame_count, enemy1.ENEMY_VEL);
+          frame_count = 0;
+          title_timestamp = frame_end;
+        }
+        //updateGameLevel();
 			}
+      //if the game has ended, render game over image
+      drawGameOver();
 		}
 	}
-
 	//Free resources and close SDL
-	close();
-
+  close();
 	return 0;
 }
