@@ -272,9 +272,10 @@ CMakeFiles/CarGame.dir/src/texture.cpp.o: \
  /usr/include/SDL2/SDL_locale.h /usr/include/SDL2/SDL_misc.h \
  /usr/include/SDL2/SDL_image.h /usr/include/SDL2/SDL.h \
  /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/renderer.h \
+ /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/texture.h \
  /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_uninitialized.h \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
  /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/car.h \
- /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/texture.h
+ /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/game.h

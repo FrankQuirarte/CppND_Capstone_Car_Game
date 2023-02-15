@@ -83,10 +83,24 @@ CMakeFiles/CarGame.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CarGame.dir/src/main.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/main.cpp -o CMakeFiles/CarGame.dir/src/main.cpp.s
 
+CMakeFiles/CarGame.dir/src/car.cpp.o: CMakeFiles/CarGame.dir/flags.make
+CMakeFiles/CarGame.dir/src/car.cpp.o: ../src/car.cpp
+CMakeFiles/CarGame.dir/src/car.cpp.o: CMakeFiles/CarGame.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CarGame.dir/src/car.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CarGame.dir/src/car.cpp.o -MF CMakeFiles/CarGame.dir/src/car.cpp.o.d -o CMakeFiles/CarGame.dir/src/car.cpp.o -c /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/car.cpp
+
+CMakeFiles/CarGame.dir/src/car.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CarGame.dir/src/car.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/car.cpp > CMakeFiles/CarGame.dir/src/car.cpp.i
+
+CMakeFiles/CarGame.dir/src/car.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CarGame.dir/src/car.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/car.cpp -o CMakeFiles/CarGame.dir/src/car.cpp.s
+
 CMakeFiles/CarGame.dir/src/game.cpp.o: CMakeFiles/CarGame.dir/flags.make
 CMakeFiles/CarGame.dir/src/game.cpp.o: ../src/game.cpp
 CMakeFiles/CarGame.dir/src/game.cpp.o: CMakeFiles/CarGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CarGame.dir/src/game.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CarGame.dir/src/game.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CarGame.dir/src/game.cpp.o -MF CMakeFiles/CarGame.dir/src/game.cpp.o.d -o CMakeFiles/CarGame.dir/src/game.cpp.o -c /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/game.cpp
 
 CMakeFiles/CarGame.dir/src/game.cpp.i: cmake_force
@@ -100,7 +114,7 @@ CMakeFiles/CarGame.dir/src/game.cpp.s: cmake_force
 CMakeFiles/CarGame.dir/src/controller.cpp.o: CMakeFiles/CarGame.dir/flags.make
 CMakeFiles/CarGame.dir/src/controller.cpp.o: ../src/controller.cpp
 CMakeFiles/CarGame.dir/src/controller.cpp.o: CMakeFiles/CarGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CarGame.dir/src/controller.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/CarGame.dir/src/controller.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CarGame.dir/src/controller.cpp.o -MF CMakeFiles/CarGame.dir/src/controller.cpp.o.d -o CMakeFiles/CarGame.dir/src/controller.cpp.o -c /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/controller.cpp
 
 CMakeFiles/CarGame.dir/src/controller.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/CarGame.dir/src/controller.cpp.s: cmake_force
 CMakeFiles/CarGame.dir/src/renderer.cpp.o: CMakeFiles/CarGame.dir/flags.make
 CMakeFiles/CarGame.dir/src/renderer.cpp.o: ../src/renderer.cpp
 CMakeFiles/CarGame.dir/src/renderer.cpp.o: CMakeFiles/CarGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/CarGame.dir/src/renderer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/CarGame.dir/src/renderer.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CarGame.dir/src/renderer.cpp.o -MF CMakeFiles/CarGame.dir/src/renderer.cpp.o.d -o CMakeFiles/CarGame.dir/src/renderer.cpp.o -c /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/renderer.cpp
 
 CMakeFiles/CarGame.dir/src/renderer.cpp.i: cmake_force
@@ -124,20 +138,6 @@ CMakeFiles/CarGame.dir/src/renderer.cpp.i: cmake_force
 CMakeFiles/CarGame.dir/src/renderer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CarGame.dir/src/renderer.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/renderer.cpp -o CMakeFiles/CarGame.dir/src/renderer.cpp.s
-
-CMakeFiles/CarGame.dir/src/car.cpp.o: CMakeFiles/CarGame.dir/flags.make
-CMakeFiles/CarGame.dir/src/car.cpp.o: ../src/car.cpp
-CMakeFiles/CarGame.dir/src/car.cpp.o: CMakeFiles/CarGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/CarGame.dir/src/car.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CarGame.dir/src/car.cpp.o -MF CMakeFiles/CarGame.dir/src/car.cpp.o.d -o CMakeFiles/CarGame.dir/src/car.cpp.o -c /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/car.cpp
-
-CMakeFiles/CarGame.dir/src/car.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CarGame.dir/src/car.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/car.cpp > CMakeFiles/CarGame.dir/src/car.cpp.i
-
-CMakeFiles/CarGame.dir/src/car.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CarGame.dir/src/car.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/src/car.cpp -o CMakeFiles/CarGame.dir/src/car.cpp.s
 
 CMakeFiles/CarGame.dir/src/texture.cpp.o: CMakeFiles/CarGame.dir/flags.make
 CMakeFiles/CarGame.dir/src/texture.cpp.o: ../src/texture.cpp
@@ -156,20 +156,20 @@ CMakeFiles/CarGame.dir/src/texture.cpp.s: cmake_force
 # Object files for target CarGame
 CarGame_OBJECTS = \
 "CMakeFiles/CarGame.dir/src/main.cpp.o" \
+"CMakeFiles/CarGame.dir/src/car.cpp.o" \
 "CMakeFiles/CarGame.dir/src/game.cpp.o" \
 "CMakeFiles/CarGame.dir/src/controller.cpp.o" \
 "CMakeFiles/CarGame.dir/src/renderer.cpp.o" \
-"CMakeFiles/CarGame.dir/src/car.cpp.o" \
 "CMakeFiles/CarGame.dir/src/texture.cpp.o"
 
 # External object files for target CarGame
 CarGame_EXTERNAL_OBJECTS =
 
 CarGame: CMakeFiles/CarGame.dir/src/main.cpp.o
+CarGame: CMakeFiles/CarGame.dir/src/car.cpp.o
 CarGame: CMakeFiles/CarGame.dir/src/game.cpp.o
 CarGame: CMakeFiles/CarGame.dir/src/controller.cpp.o
 CarGame: CMakeFiles/CarGame.dir/src/renderer.cpp.o
-CarGame: CMakeFiles/CarGame.dir/src/car.cpp.o
 CarGame: CMakeFiles/CarGame.dir/src/texture.cpp.o
 CarGame: CMakeFiles/CarGame.dir/build.make
 CarGame: CMakeFiles/CarGame.dir/link.txt
