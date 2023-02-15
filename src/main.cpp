@@ -50,6 +50,9 @@ bool running = true;
 //Game score
 int GameScore = 0;
 
+//Game score
+int GameLevel = 0;
+
 //Starts up SDL and creates window
 bool init();
 
@@ -184,7 +187,21 @@ void close()
 }
 
 
+void updateGameLevel(int &enemy1_vel, int &enemy2_vel)
+{
+	if (GameScore < 5 )                   { enemy1_vel = 2;   enemy2_vel = 2;   GameLevel = 1;}
+	if (GameScore >= 5 && GameScore < 10) { enemy1_vel = 3;   enemy2_vel = 3;   GameLevel = 2;}
+	if (GameScore >= 10 && GameScore < 15){ enemy1_vel = 4;   enemy2_vel = 4;   GameLevel = 3;}
+	if (GameScore >= 15 && GameScore < 20){ enemy1_vel = 5;   enemy2_vel = 5;   GameLevel = 4;}
+	if (GameScore >= 20 && GameScore < 25){ enemy1_vel = 6;   enemy2_vel = 6;   GameLevel = 5;}
+	if (GameScore >= 25 && GameScore < 30){ enemy1_vel = 7;   enemy2_vel = 7;   GameLevel = 6;}
+	if (GameScore >= 30 && GameScore < 35){ enemy1_vel = 8;   enemy2_vel = 8;   GameLevel = 7;}
+	if (GameScore >= 35 && GameScore < 40){ enemy1_vel = 9;   enemy2_vel = 9;   GameLevel = 8;}
+	if (GameScore >= 40 && GameScore < 45){ enemy1_vel = 10;  enemy2_vel = 10;  GameLevel = 9;}
+	if (GameScore >= 45 && GameScore < 50){ enemy1_vel = 11;  enemy2_vel = 11;  GameLevel = 10;}
+	
 
+}
 
 
 void drawGameOver()
@@ -198,7 +215,7 @@ void drawGameOver()
 
 void UpdateScoreWindowTitle(int fps, int level) 
 {
-	std::string title{"Car GameScore:" + std::to_string(GameScore) + " Level:" + std::to_string(level) + " FPS:" + std::to_string(fps)};
+	std::string title{"Car Game     Score: " + std::to_string(GameScore) + "     Level: " + std::to_string(level) + "     FPS: " + std::to_string(fps)};
 	SDL_SetWindowTitle(gWindow, title.c_str());
 }
 
@@ -291,7 +308,6 @@ int main( int argc, char* args[] )
 				//Update screen
 				SDL_RenderPresent(gRenderer);
 				
-				
 				frame_end = SDL_GetTicks();
 
 				// Keep track of how long each loop through the input/update/render cycle takes.
@@ -300,11 +316,12 @@ int main( int argc, char* args[] )
 
 				// After every second, update the window title.
 				if (frame_end - title_timestamp >= 1000) {
-					UpdateScoreWindowTitle(frame_count, enemy1.enemy_vel);
+					UpdateScoreWindowTitle(frame_count, GameLevel);
 					frame_count = 0;
 					title_timestamp = frame_end;
 				}
-				//updateGameLevel();
+				
+				updateGameLevel(enemy1.enemy_vel, enemy2.enemy_vel);
 			}
 			//if the game has ended, render game over image
 			drawGameOver();
