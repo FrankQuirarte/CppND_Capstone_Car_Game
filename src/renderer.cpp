@@ -14,6 +14,8 @@ LTexture gEnemy2Texture;
 LTexture gBackGroundTexture;
 LTexture gGOTexture;
 
+int scrollingOffset = 0;
+
 //constructor
 Renderer::Renderer(const std::size_t screen_width, const std::size_t screen_height) : screen_width(screen_width), screen_height(screen_height)
 {
@@ -47,6 +49,7 @@ Renderer::Renderer(const std::size_t screen_width, const std::size_t screen_heig
   {
     std::cout << "SDL_image could not initialize! SDL_image Error: %s" << IMG_GetError() << "\n";
   }
+  loadMedia();
 
 }
 
@@ -56,58 +59,99 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
+bool Renderer::loadMedia() {
+	//Loading success flag
+	bool success = true;
+
+	//Load car texture
+	if( !gCarTexture.loadFromFile("../resources/red_car.bmp", sdl_renderer ) )
+	{
+		printf( "Failed to load car texture!\n" );
+		success = false;
+	}
+
+	//Load enemy1 texture
+	if( !gEnemy1Texture.loadFromFile( "../resources/blue_car.bmp", sdl_renderer ) )
+	{
+		printf( "Failed to load enemy1 image!\n" );
+		success = false;
+	}
+
+	//Load enemy2 texture
+	if( !gEnemy2Texture.loadFromFile( "../resources/purple_car.bmp", sdl_renderer ) )
+	{
+		printf( "Failed to load enemy2 image!\n" );
+		success = false;
+	}
+
+	
+  //Load background texture
+	if( !gBackGroundTexture.loadFromFile( "../resources/background.bmp", sdl_renderer ) )
+	{
+		printf( "Failed to load background image!\n" );
+		success = false;
+	}
+
+
+	//Load game over texture
+	if( !gGOTexture.loadFromFile( "../resources/game_over.bmp", sdl_renderer ) )
+	{
+		printf( "Failed to load game_over image!\n" );
+		success = false;
+	}
+	return success;
+}
+
+
 void Renderer::RenderGameOver() {
-	Car gameOver(150,250,771,320); //create gameOver car object
-	gGOTexture.render(gameOver.mPosX, gameOver.mPosY, sdl_renderer);  //gameOver.render(gGOTexture); //render image
-	SDL_RenderPresent( sdl_renderer ); //Update screen
+	
+  int goX = 150, goY = 250, goWidth = 771, goHeight = 320;
+	gGOTexture.render(goX, goY, sdl_renderer); //render image
+	SDL_RenderPresent( sdl_renderer ); //update screen
 	sleep(3); //sleep for two seconds
 }
 
 
 void Renderer::RenderBackGround() {
-  // Render highway background
-  if( !gBackGroundTexture.loadFromFile("../resources/background.bmp", sdl_renderer ) )
+  
+  //Scroll background
+  --scrollingOffset;
+  if( scrollingOffset < -gBackGroundTexture.getHeight() )
   {
-    std::cout << "Failed to load background image!" << "\n";
+    scrollingOffset = 0;
   }
-  //Show the background
-  gBackGroundTexture.render( 0, 0, sdl_renderer);
+
+  //Render moving background
+  gBackGroundTexture.render(scrollingOffset, 0, sdl_renderer);
+  gBackGroundTexture.render(scrollingOffset + gBackGroundTexture.getHeight(), 0, sdl_renderer);
+
 }
 
 
-
-void Renderer::Render(Car const car) {
-  
-  // Clear screen and set black color to the background
-  //                                     R    G      B   Alpha: opacity
-  //SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x0, 0x00, 0xFF);
-  //SDL_RenderClear(sdl_renderer); // draw the color
-
-  Renderer::RenderBackGround();
-
-
-  // Render a rectangle as car's body
-  /*
-  block.x = static_cast<int>(car.PosX) * block.w;
-  block.y = static_cast<int>(car.PosY) * block.h;
-  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF); // set red color
-  SDL_RenderFillRect(sdl_renderer, &block); //draws a rectangle
-  */
-
-  // Render car's picture
-  if( !gCarTexture.loadFromFile("../resources/red_car.bmp", sdl_renderer) )
-  {
-    std::cout << "Failed to load car image!" << "\n";
-  }
+void Renderer::RenderPlayerCar(Car const car) {
   //Show the car
-	gCarTexture.render(car.mPosX, car.mPosY, sdl_renderer);
-
-
+  gCarTexture.render(car.mPosX, car.mPosY, sdl_renderer);
   // Update Screen
   SDL_RenderPresent(sdl_renderer);
 }
 
-void Renderer::UpdateWindowTitle(int score, int fps) {
-  std::string title{"Car Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
+void Renderer::RenderEnemy1(Car const enemy1) {
+  //Show the car
+  gEnemy1Texture.render(enemy1.mPosX, enemy1.mPosY, sdl_renderer);
+  // Update Screen
+  SDL_RenderPresent(sdl_renderer);
+}
+
+void Renderer::RenderEnemy2(Car const enemy2) {
+  //Show the car
+  gEnemy2Texture.render(enemy2.mPosX, enemy2.mPosY, sdl_renderer);
+  // Update Screen
+  SDL_RenderPresent(sdl_renderer);
+}
+
+
+
+void Renderer::UpdateWindowTitle(int score, int level, int fps) {
+  std::string title{"Car Game     Score: " + std::to_string(level) + "     Level: " + std::to_string(level) + "     FPS: " + std::to_string(fps)};
   SDL_SetWindowTitle(sdl_window, title.c_str());
 }

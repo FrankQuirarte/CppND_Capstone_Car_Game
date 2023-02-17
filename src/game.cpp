@@ -33,7 +33,8 @@ void Game::Run(Controller const &controller, Renderer &renderer, std::size_t tar
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, car);
     Update();
-    renderer.Render(car);
+    renderer.RenderBackGround();
+    renderer.RenderPlayerCar(car);
 
     frame_end = SDL_GetTicks();
 
@@ -43,7 +44,7 @@ void Game::Run(Controller const &controller, Renderer &renderer, std::size_t tar
 
     // After every second, update the window title.
     if (frame_end - title_timestamp >= 1000) {
-      renderer.UpdateWindowTitle(score, frame_count);
+      renderer.UpdateWindowTitle(score, level, frame_count);
       frame_count = 0;
       title_timestamp = frame_end;
     }
