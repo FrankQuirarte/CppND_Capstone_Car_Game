@@ -4,23 +4,20 @@
 #include <SDL2/SDL_image.h>
 #include "renderer.h"
 #include "texture.h"
-#include "car.h"
 
 
-LTexture::LTexture()
-{
-	//Initialize
-	mTexture = NULL;
-	mWidth = 0;
-	mHeight = 0;
+
+LTexture::LTexture() {
+    //Initialize
+    mTexture = NULL;
+    mWidth = 0;
+    mHeight = 0;
 }
 
-LTexture::~LTexture()
-{
-	//Deallocate
-	free();
+LTexture::~LTexture() {
+    //Deallocate
+    free();
 }
-
 
 bool LTexture::loadFromFile( std::string path, SDL_Renderer* renderer ) {
     //Get rid of preexisting texture
@@ -99,32 +96,32 @@ bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 
 void LTexture::free()
 {
-	//Free texture if it exists
-	if( mTexture != NULL )
-	{
-		SDL_DestroyTexture( mTexture );
-		mTexture = NULL;
-		mWidth = 0;
-		mHeight = 0;
-	}
+    //Free texture if it exists
+    if( mTexture != NULL )
+    {
+        SDL_DestroyTexture( mTexture );
+        mTexture = NULL;
+        mWidth = 0;
+        mHeight = 0;
+    }
 }
 
 void LTexture::setColor( Uint8 red, Uint8 green, Uint8 blue )
 {
-	//Modulate texture rgb
-	SDL_SetTextureColorMod( mTexture, red, green, blue );
+    //Modulate texture rgb
+    SDL_SetTextureColorMod( mTexture, red, green, blue );
 }
 
 void LTexture::setBlendMode( SDL_BlendMode blending )
 {
-	//Set blending function
-	SDL_SetTextureBlendMode( mTexture, blending );
+    //Set blending function
+    SDL_SetTextureBlendMode( mTexture, blending );
 }
 		
 void LTexture::setAlpha( Uint8 alpha )
 {
-	//Modulate texture alpha
-	SDL_SetTextureAlphaMod( mTexture, alpha );
+    //Modulate texture alpha
+    SDL_SetTextureAlphaMod( mTexture, alpha );
 }
 
 void LTexture::render( int x, int y, SDL_Renderer* renderer, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
@@ -145,10 +142,10 @@ void LTexture::render( int x, int y, SDL_Renderer* renderer, SDL_Rect* clip, dou
 
 int LTexture::getWidth()
 {
-	return mWidth;
+    return mWidth;
 }
 
 int LTexture::getHeight()
 {
-	return mHeight;
+    return mHeight;
 }

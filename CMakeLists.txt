@@ -1,7 +1,7 @@
 project(CarGame)
 cmake_minimum_required(VERSION 2.8)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-add_executable(CarGame src/main.cpp  src/car.cpp src/game.cpp src/controller.cpp src/renderer.cpp src/texture.cpp)
+add_executable(CarGame src/main.cpp src/game.cpp src/controller.cpp src/renderer.cpp src/car.cpp src/texture.cpp)
 INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
