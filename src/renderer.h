@@ -14,12 +14,12 @@ class Renderer {
   //destructor
   ~Renderer();
 
-  //methods:
-  //renders the car and enemies
+  //loads all necesary images for the game
   bool loadMedia();
-  void RenderPlayerCar(Car const car);
-  void RenderEnemy1(Car const enemy1);
-  void RenderEnemy2(Car const enemy2);
+  
+  //renders the car and enemies
+  void RenderCars(Car const car, Car const enemy1, Car const enemy2);
+
   void RenderGameOver();
   void RenderBackGround();
   //updates the upper bar in the game window

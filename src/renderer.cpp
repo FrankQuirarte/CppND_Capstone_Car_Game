@@ -60,55 +60,55 @@ Renderer::~Renderer() {
 }
 
 bool Renderer::loadMedia() {
-	//Loading success flag
-	bool success = true;
+  //Loading success flag
+  bool success = true;
 
-	//Load car texture
-	if( !gCarTexture.loadFromFile("../resources/red_car.bmp", sdl_renderer ) )
-	{
-		printf( "Failed to load car texture!\n" );
-		success = false;
-	}
+  //Load car texture
+  if( !gCarTexture.loadFromFile("../resources/red_car.bmp", sdl_renderer ) )
+  {
+    printf( "Failed to load car texture!\n" );
+    success = false;
+  }
 
-	//Load enemy1 texture
-	if( !gEnemy1Texture.loadFromFile( "../resources/blue_car.bmp", sdl_renderer ) )
-	{
-		printf( "Failed to load enemy1 image!\n" );
-		success = false;
-	}
+  //Load enemy1 texture
+  if( !gEnemy1Texture.loadFromFile( "../resources/blue_car.bmp", sdl_renderer ) )
+  {
+    printf( "Failed to load enemy1 image!\n" );
+    success = false;
+  }
 
-	//Load enemy2 texture
-	if( !gEnemy2Texture.loadFromFile( "../resources/purple_car.bmp", sdl_renderer ) )
-	{
-		printf( "Failed to load enemy2 image!\n" );
-		success = false;
-	}
+  //Load enemy2 texture
+  if( !gEnemy2Texture.loadFromFile( "../resources/purple_car.bmp", sdl_renderer ) )
+  {
+    printf( "Failed to load enemy2 image!\n" );
+    success = false;
+  }
 
-	
+
   //Load background texture
-	if( !gBackGroundTexture.loadFromFile( "../resources/background.bmp", sdl_renderer ) )
-	{
-		printf( "Failed to load background image!\n" );
-		success = false;
-	}
+  if( !gBackGroundTexture.loadFromFile( "../resources/background.bmp", sdl_renderer ) )
+  {
+    printf( "Failed to load background image!\n" );
+    success = false;
+  }
 
 
-	//Load game over texture
-	if( !gGOTexture.loadFromFile( "../resources/game_over.bmp", sdl_renderer ) )
-	{
-		printf( "Failed to load game_over image!\n" );
-		success = false;
-	}
-	return success;
+  //Load game over texture
+  if( !gGOTexture.loadFromFile( "../resources/game_over.bmp", sdl_renderer ) )
+  {
+    printf( "Failed to load game_over image!\n" );
+    success = false;
+  }
+  return success;
 }
 
 
 void Renderer::RenderGameOver() {
-	
+
   int goX = 150, goY = 250, goWidth = 771, goHeight = 320;
-	gGOTexture.render(goX, goY, sdl_renderer); //render image
-	SDL_RenderPresent( sdl_renderer ); //update screen
-	sleep(3); //sleep for two seconds
+  gGOTexture.render(goX, goY, sdl_renderer); //render image
+  SDL_RenderPresent( sdl_renderer ); //update screen
+  sleep(3); //sleep for two seconds
 }
 
 
@@ -127,31 +127,18 @@ void Renderer::RenderBackGround() {
 
 }
 
-
-void Renderer::RenderPlayerCar(Car const car) {
+void Renderer::RenderCars(Car const car, Car const enemy1, Car const enemy2) {
   //Show the car
   gCarTexture.render(car.mPosX, car.mPosY, sdl_renderer);
-  // Update Screen
-  SDL_RenderPresent(sdl_renderer);
-}
-
-void Renderer::RenderEnemy1(Car const enemy1) {
-  //Show the car
+  //Show the enemy1
   gEnemy1Texture.render(enemy1.mPosX, enemy1.mPosY, sdl_renderer);
-  // Update Screen
-  SDL_RenderPresent(sdl_renderer);
-}
-
-void Renderer::RenderEnemy2(Car const enemy2) {
-  //Show the car
+  //Show the enemy2
   gEnemy2Texture.render(enemy2.mPosX, enemy2.mPosY, sdl_renderer);
   // Update Screen
   SDL_RenderPresent(sdl_renderer);
 }
 
-
-
 void Renderer::UpdateWindowTitle(int score, int level, int fps) {
-  std::string title{"Car Game     Score: " + std::to_string(level) + "     Level: " + std::to_string(level) + "     FPS: " + std::to_string(fps)};
+  std::string title{"Car Game     Score: " + std::to_string(score) + "     Level: " + std::to_string(level) + "     FPS: " + std::to_string(fps)};
   SDL_SetWindowTitle(sdl_window, title.c_str());
 }

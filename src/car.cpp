@@ -3,7 +3,6 @@
 #include <iostream>
 
 
-extern int GameScore;
 
 bool Car::checkCollision( SDL_Rect carColliderBox, SDL_Rect enemyColliderBox )
 {
@@ -52,8 +51,7 @@ bool Car::checkCollision( SDL_Rect carColliderBox, SDL_Rect enemyColliderBox )
 
 
 
-void Car::move() {
-
+void Car::move(SDL_Rect& collisionRect1, SDL_Rect& collisionRect2) {
 
     //Move the car left or right
     mPosX += mVelX;
@@ -79,37 +77,38 @@ void Car::move() {
         mPosY -= mVelY;
         mCollider.y = mPosY;
     }
-
+    
+    //check if the car has chrased against the enemies
+    if(checkCollision(mCollider, collisionRect1) || checkCollision(mCollider, collisionRect2)){
+      collision = true;
+    }
 
 }
 
+void Car::enemyHorizontalMove(int &gameScore) {
+  // variables for the upper and lower boundaries for the random number generator
+  int lbx = SCREEN_WIDTH + width; 
+  int ubx = 3000; //magic number
 
-void Car::enemyHorizontalMove()
-{
+  int lby = HIGHWAY_UPPER_LIMIT; 
+  int uby = HIGHWAY_LOWER_LIMIT;
 
-	// variables for the upper and lower boundaries for the random number generator
-	int lbx = SCREEN_WIDTH + width; 
-	int ubx = 3000; //magic number
+  //Move the car fromthe right to left until it desapears from screen
+  mPosX -= enemy_vel;
+  mCollider.x = mPosX;
 
-	int lby = HIGHWAY_UPPER_LIMIT; 
-	int uby = HIGHWAY_LOWER_LIMIT;
+  // here we could check if the enemy doesnt crash agains the player instead of the other way around
 
-	//Move the car fromthe right to left until it desapears from screen
-	mPosX -= enemy_vel;
-	mCollider.x = mPosX;
-
-	// here we could check if the enemy doesnt crash agains the player instead of the other way around
-
-	//if the car is out of the screen, generate a new random position in the left outside part
-	if(mPosX < -width) 
-	{
-		//mPosX = ENEMY1_X_START_POS;
-		mPosX = rand() % (ubx - lbx + 1) + lbx;
-		mCollider.x = mPosX;
-		mPosY = rand() % (uby - lby + 1) + lby;
-		mCollider.y = mPosY;
-		//if the enemy is out of the screen and there was not collision, increment the score
-		GameScore++;
-		//enemy_vel++;
-	}
+  //if the car is out of the screen, generate a new random position in the left outside part
+  if(mPosX < -width) 
+  {
+    //mPosX = ENEMY1_X_START_POS;
+    mPosX = rand() % (ubx - lbx + 1) + lbx;
+    mCollider.x = mPosX;
+    mPosY = rand() % (uby - lby + 1) + lby;
+    mCollider.y = mPosY;
+    //if the enemy is out of the screen and there was not collision, increment the score
+    gameScore++;
+    //enemy_vel++;
+  }
 }

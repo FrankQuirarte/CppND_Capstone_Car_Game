@@ -25,13 +25,14 @@ const int ENEMY2_Y_START_POS = 500;
 const int ENEMY2_WIDTH = 181; 
 const int ENEMY2_HEIGHT = 58;
 
+
 class Game {
  public:
   Game();
   void Run(Controller const &controller, Renderer &renderer, std::size_t target_frame_duration);
-  void updateScore();
   int GetScore() const;
   void updateGameLevel(int &enemy1_vel, int &enemy2_vel);
+  void over(Renderer &renderer);
   int score = 0;
   int level = 0;
 

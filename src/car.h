@@ -35,11 +35,11 @@ class Car {
     bool checkCollision( SDL_Rect carColliderBox, SDL_Rect enemyColliderBox);
 
     //Moves the car and checks collisions agains the enemies
-    void move();
+    void move(SDL_Rect& collisionRect1, SDL_Rect& collisionRect2);
     //bool move(SDL_Rect& collisionRect1, SDL_Rect& collisionRect2);
     
     //Generates a random start position for the enemies and moves them from right to left
-    void enemyHorizontalMove();
+    void enemyHorizontalMove(int &gameScore);
 
     //Car's collision box
     SDL_Rect mCollider;
@@ -57,6 +57,9 @@ class Car {
       
     //The X and Y offsets of the car
     int mPosX, mPosY;
+
+    //Collision status
+    bool collision = false;
 
   private:
 
