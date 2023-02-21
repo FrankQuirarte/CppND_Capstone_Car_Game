@@ -1,3 +1,0 @@
-/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles/CarGame.dir
-/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles/edit_cache.dir
-/home/frank/cpp_udacity/CppND-Capstone-Car_Game_FJQP/build/CMakeFiles/rebuild_cache.dir

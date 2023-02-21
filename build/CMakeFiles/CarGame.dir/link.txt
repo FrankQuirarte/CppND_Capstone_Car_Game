@@ -1,1 +1,0 @@
-/usr/bin/g++  -std=c++0x -g -rdynamic CMakeFiles/CarGame.dir/src/main.cpp.o CMakeFiles/CarGame.dir/src/car.cpp.o CMakeFiles/CarGame.dir/src/game.cpp.o CMakeFiles/CarGame.dir/src/controller.cpp.o CMakeFiles/CarGame.dir/src/renderer.cpp.o CMakeFiles/CarGame.dir/src/texture.cpp.o -o CarGame  -lSDL2 -lSDL2_image -lSDL2 -lSDL2_image 
