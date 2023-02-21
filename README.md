@@ -6,6 +6,8 @@ The project option chosen was a 2D game. In this case, is a race game where the 
 The code for this repo was inspired by the [snake game example](https://github.com/udacity/CppND-Capstone-Snake-Game) and this great online tutorial [Lazy Foo' Beginning Game Programming v2.0](https://lazyfoo.net/tutorials/SDL/index.php).
 
 
+![Car game](/resources/CarGame.jpg "Car Game")
+
 ## Dependencies for Running Locally
 * cmake >= 3.7
   * All OSes: [click here for installation instructions](https://cmake.org/install/)
