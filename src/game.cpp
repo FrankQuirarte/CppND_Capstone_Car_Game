@@ -13,6 +13,10 @@ Game::Game( )
   //place enemy (enemy1)
 }
 
+void Game::Instructions(Controller &controller, Renderer &renderer) { 
+  renderer.RenderInstructions();
+  controller.WaitForEnterKey();
+}
 
 void Game::Run(Controller const &controller, Renderer &renderer, std::size_t target_frame_duration) {
   Uint32 title_timestamp = SDL_GetTicks();
@@ -60,7 +64,7 @@ void Game::Run(Controller const &controller, Renderer &renderer, std::size_t tar
     }
     */
 
-    updateGameLevel(enemy1.enemy_vel, enemy2.enemy_vel);
+    UpdateGameLevel(enemy1.enemy_vel, enemy2.enemy_vel);
   }
 }
 
@@ -78,7 +82,7 @@ int Game::GetScore() const {
   return score; 
 }
 
-void Game::updateGameLevel(int &enemy1_vel, int &enemy2_vel) {
+void Game::UpdateGameLevel(int &enemy1_vel, int &enemy2_vel) {
   if (score < 5 )                { enemy1_vel = 2;   enemy2_vel = 2;   level = 1;}
   if (score >= 5 && score < 10)  { enemy1_vel = 3;   enemy2_vel = 3;   level = 2;}
   if (score >= 10 && score < 15) { enemy1_vel = 4;   enemy2_vel = 4;   level = 3;}
@@ -92,7 +96,8 @@ void Game::updateGameLevel(int &enemy1_vel, int &enemy2_vel) {
   if (score >= 50)               { enemy1_vel = 12;  enemy2_vel = 12;  level = 10;}
 }
 
-void Game::over(Renderer &renderer) { 
+void Game::Over(Controller &controller, Renderer &renderer) { 
   renderer.RenderGameOver();
+  controller.WaitForEnterKey();
 }
 

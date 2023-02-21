@@ -2,8 +2,6 @@
 #include "texture.h"
 #include <iostream>
 #include <string>
-#include <unistd.h> //library for sleep()
-
 
 
 
@@ -13,6 +11,7 @@ LTexture gEnemy1Texture;
 LTexture gEnemy2Texture;
 LTexture gBackGroundTexture;
 LTexture gGOTexture;
+LTexture gInstTexture;
 
 int scrollingOffset = 0;
 
@@ -49,7 +48,7 @@ Renderer::Renderer(const std::size_t screen_width, const std::size_t screen_heig
   {
     std::cout << "SDL_image could not initialize! SDL_image Error: %s" << IMG_GetError() << "\n";
   }
-  loadMedia();
+  LoadMedia();
 
 }
 
@@ -59,7 +58,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-bool Renderer::loadMedia() {
+bool Renderer::LoadMedia() {
   //Loading success flag
   bool success = true;
 
@@ -92,6 +91,12 @@ bool Renderer::loadMedia() {
     success = false;
   }
 
+  //Load instructions texture
+  if( !gInstTexture.loadFromFile( "../resources/instructions.bmp", sdl_renderer ) )
+  {
+    printf( "Failed to load game_over image!\n" );
+    success = false;
+  }
 
   //Load game over texture
   if( !gGOTexture.loadFromFile( "../resources/game_over.bmp", sdl_renderer ) )
@@ -102,13 +107,18 @@ bool Renderer::loadMedia() {
   return success;
 }
 
+void Renderer::RenderInstructions() {
+
+  int goX = 0, goY = 0;
+  gInstTexture.render(goX, goY, sdl_renderer); //render image
+  SDL_RenderPresent( sdl_renderer ); //update screen
+}
 
 void Renderer::RenderGameOver() {
 
   int goX = 150, goY = 250, goWidth = 771, goHeight = 320;
   gGOTexture.render(goX, goY, sdl_renderer); //render image
   SDL_RenderPresent( sdl_renderer ); //update screen
-  sleep(3); //sleep for two seconds
 }
 
 

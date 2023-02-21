@@ -29,10 +29,11 @@ const int ENEMY2_HEIGHT = 58;
 class Game {
  public:
   Game();
+  void Instructions(Controller &controller, Renderer &renderer);
   void Run(Controller const &controller, Renderer &renderer, std::size_t target_frame_duration);
   int GetScore() const;
-  void updateGameLevel(int &enemy1_vel, int &enemy2_vel);
-  void over(Renderer &renderer);
+  void UpdateGameLevel(int &enemy1_vel, int &enemy2_vel);
+  void Over(Controller &controller, Renderer &renderer);
   int score = 0;
   int level = 0;
 

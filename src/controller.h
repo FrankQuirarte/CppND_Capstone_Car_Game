@@ -6,6 +6,7 @@
 class Controller {
  public:
   void HandleInput(bool &running, Car &car) const;
+  void WaitForEnterKey();
 
  private:
 };

@@ -26,7 +26,7 @@ The code for this repo was inspired by the [snake game example](https://github.c
 1. Clone this repo.
 2. Make a build directory in the top level directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. Run it: `./CarGame`.
+4. Run it: `./CarGame`
 
 ## Overview of code structure
 
@@ -40,12 +40,12 @@ Main calls Game::Run to starts the game loop. Game::Run receives the controller 
 These files define the Controller class. This class handles keyboard input using the SDL libary, and it sets the car's movement based on the input. 
 
 ### 3) car.h and car.cpp 
-These files define the Car class which contains attributes to keep track of the car and enemies dimensionts, position and speed. Additionally, there are methods to move the car *Car::move()* or move the enemies in a horizontal way with random start position *Car::enemyHorizontalMove()* and check for collitions in *Car::checkCollision()*.
+These files define the Car class which contains attributes to keep track of the car and enemies dimensionts, position and speed. Additionally, there are methods to move the car *Car::move()*, to move the enemies in a horizontal way with random start position *Car::enemyHorizontalMove()* and check for collitions in *Car::checkCollision()*.
 
 ### 4) game.h and game.cpp 
 These files define the Game class and the game loop: *Game::run()*. The Game class stores the state of the game, including an instance of the player car object, the enemies car objects the game score, and the game level. 
 
-Inside the game loop there is a call to *Game::Update()* in which the movement of the car and enemies happes, as well as checks for collisions, an updates the score of the game. 
+Inside the game loop there is a call to *Game::Update()* in which the movement of the car and enemies takes place, as well as checks for collisions, an updates the score of the game. 
 
 ### 5) texture.h and texture.cpp
 These files provide the APIs to cretate the Texture objects from the .bmp pictures inside the resources folder.
@@ -53,11 +53,8 @@ These files provide the APIs to cretate the Texture objects from the .bmp pictur
 ### 6) render.h and render.cpp
 These files define the Renderer class which uses the SDL library to render the game to the screen. The Renderer class constructor creates the SDL window and an SDL renderer object that can draw in the window. 
 
-With the help of the texture class the *Renderer::RenderCars()* functions can render the car images representing the car objects in their current position during the game.
-
-*Renderer::RenderBackGround()* method draws the background image with an horizontal animation.
-
-*Renderer::RenderGameOver()* method draws the game over picture when the game ends.
+With the help of the texture class the *Renderer::RenderCars()* function renders the car images representing the car objects in their current position during the game.
+*Renderer::RenderBackGround()* method draws the background image with an horizontal animation. *Renderer::RenderGameOver()* method draws the game over picture when the game ends.
 
 
 ## Project Rubric

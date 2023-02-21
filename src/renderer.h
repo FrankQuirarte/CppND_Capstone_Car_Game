@@ -15,12 +15,15 @@ class Renderer {
   ~Renderer();
 
   //loads all necesary images for the game
-  bool loadMedia();
+  bool LoadMedia();
   
   //renders the car and enemies
   void RenderCars(Car const car, Car const enemy1, Car const enemy2);
 
+  void RenderInstructions();
+
   void RenderGameOver();
+
   void RenderBackGround();
   //updates the upper bar in the game window
   void UpdateWindowTitle(int score, int level, int fps);

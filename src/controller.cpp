@@ -1,6 +1,7 @@
 #include "controller.h"
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <unistd.h> //library for sleep()
 #include "car.h"
 
 
@@ -39,5 +40,20 @@ void Controller::HandleInput(bool &running, Car &car)const{
         }
     }
 
+  }
+}
+
+void Controller::WaitForEnterKey() {
+  //Event handler
+  SDL_Event e;
+  bool continueB = true;
+  while(continueB) {
+    while (SDL_PollEvent(&e)) {
+      //If a key was pressed
+      if( e.type == SDL_KEYDOWN && e.key.repeat == 0 ) { 
+        if ( e.key.keysym.sym == SDLK_RETURN) { continueB = false; }
+      }
+      usleep(3000); //sleep for 3 milliseconds
+    }
   }
 }
